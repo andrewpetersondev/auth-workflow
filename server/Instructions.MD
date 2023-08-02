@@ -38,17 +38,17 @@
 
 #### Email Setup
 
-- [] re-watch project 08
-- [] ethereal credentials (create account/login)
-- [] install nodemailer
-- [] create (nodemailerConfig, sendEmail,
-  sendResetPasswordEmail, sendVerficationEmail) files in utils
+- [x] re-watch project 08
+- [x] ethereal credentials (create account/login)
+- [x] install nodemailer
+- [x] create (nodemailerConfig, sendEmail,
+      sendResetPasswordEmail, sendVerificationEmail) files in utils
 
 #### Send Verification Link
 
-- [] refactor sendEmail
-- [] setup sendVerificationEmail.js
-- [] pass arguments
+- [x] refactor sendEmail
+- [x] setup sendVerificationEmail.js
+- [x] pass arguments
 
 #### Token Model
 
