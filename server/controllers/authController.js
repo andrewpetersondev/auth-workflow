@@ -7,6 +7,7 @@ const {
   sendVerificationEmail,
 } = require("../utils")
 const crypto = require("crypto")
+const { log } = require("console")
 
 const register = async (req, res) => {
   const { email, name, password } = req.body
@@ -31,6 +32,24 @@ const register = async (req, res) => {
   })
 
   const origin = "http://localhost:3000"
+  // const productionOrigin = ""
+
+  // const tempOrigin = req.get("origin")
+  // console.log(`origin : ${tempOrigin}`)
+
+  // const protocol = req.protocol
+  // console.log("protocol : ", protocol)
+
+  // const host = req.get("host")
+  // console.log("host : ", host)
+
+  // const forwardedHost = req.get("x-forwarded-host")
+  // const forwardedProtocol = req.get("x-forwarded-proto")
+
+  // console.log(`forwarded host : ${forwardedHost}`)
+  // console.log(`forwarded protocol : ${forwardedProtocol}`)
+
+  // console.log(req)
 
   await sendVerificationEmail({
     name: user.name,
