@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const Token = require("../models/Token")
 const { StatusCodes } = require("http-status-codes")
 const CustomError = require("../errors")
 const {
@@ -7,7 +8,6 @@ const {
   sendVerificationEmail,
 } = require("../utils")
 const crypto = require("crypto")
-const { log } = require("console")
 
 const register = async (req, res) => {
   const { email, name, password } = req.body
@@ -34,22 +34,17 @@ const register = async (req, res) => {
   const origin = "http://localhost:3000"
   // const productionOrigin = ""
 
+  // console.log(req)
   // const tempOrigin = req.get("origin")
   // console.log(`origin : ${tempOrigin}`)
-
   // const protocol = req.protocol
   // console.log("protocol : ", protocol)
-
   // const host = req.get("host")
   // console.log("host : ", host)
-
   // const forwardedHost = req.get("x-forwarded-host")
   // const forwardedProtocol = req.get("x-forwarded-proto")
-
   // console.log(`forwarded host : ${forwardedHost}`)
   // console.log(`forwarded protocol : ${forwardedProtocol}`)
-
-  // console.log(req)
 
   await sendVerificationEmail({
     name: user.name,
@@ -63,6 +58,7 @@ const register = async (req, res) => {
     msg: "Success! Please check your email to verify the account.",
   })
 }
+
 const verifyEmail = async (req, res) => {
   // console.log(req.body)
   const { verificationToken, email } = req.body
@@ -106,7 +102,21 @@ const login = async (req, res) => {
   }
 
   const tokenUser = createTokenUser(user)
-  attachCookiesToResponse({ res, user: tokenUser })
+
+  // create refresh token
+  let refreshToken = ""
+
+  // check for existing token
+
+  refreshToken = crypto.randomBytes(40).toString("hex")
+  const userAgent = req.headers["user-agent"]
+  const ip = req.ip
+
+  const userToken = { refreshToken, ip, userAgent, user: user._id }
+
+  await Token.create(userToken)
+
+  attachCookiesToResponse({ res, user: tokenUser, refreshToken })
 
   res.status(StatusCodes.OK).json({ user: tokenUser })
 }
