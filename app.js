@@ -1,5 +1,11 @@
 require("dotenv").config()
 require("express-async-errors")
+
+// production
+// const { dirname } = require("path")
+// const { fileURLToPath } = require("url")
+const path = require("path")
+
 // express
 
 const express = require("express")
@@ -43,7 +49,11 @@ app.use(mongoSanitize())
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
 
-app.use(express.static("./client/public"))
+// app.use(express.static("./public"))
+
+// only for deployment
+app.use(express.static(path.join(__dirname, "./client/build")))
+
 app.use(fileUpload())
 
 app.use("/api/v1/auth", authRouter)
@@ -51,6 +61,11 @@ app.use("/api/v1/users", userRouter)
 app.use("/api/v1/products", productRouter)
 app.use("/api/v1/reviews", reviewRouter)
 app.use("/api/v1/orders", orderRouter)
+
+// try to the two routes above, after that, every route will lead to client build's index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"))
+})
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
