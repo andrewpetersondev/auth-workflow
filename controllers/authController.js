@@ -33,8 +33,8 @@ const register = async (req, res) => {
     verificationToken,
   })
 
-  const origin = "http://localhost:3000"
-  // const productionOrigin = ""
+  // const origin = "http://localhost:3000"
+  const productionOrigin = "https://auth-workflow-ky8z.onrender.com"
 
   // console.log(req)
   // const tempOrigin = req.get("origin")
@@ -52,7 +52,7 @@ const register = async (req, res) => {
     name: user.name,
     email: user.email,
     verificationToken: user.verificationToken,
-    origin,
+    productionOrigin,
   })
 
   // send verification token back only while testing in postman
@@ -160,7 +160,8 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex")
     // send email
-    const origin = "http://localhost:3000"
+    // const devOrigin = "http://localhost:3000"
+    const origin = "https://auth-workflow-ky8z.onrender.com"
     await sendResetPasswordEmail({
       name: user.name,
       email: user.email,

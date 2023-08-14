@@ -1,3 +1,5 @@
-const url = 'http://localhost:5000';
+const devURL = "http://localhost:5000"
 
-export default url;
+const url = "https://auth-workflow-ky8z.onrender.com"
+
+export default url
