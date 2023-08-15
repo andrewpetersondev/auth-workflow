@@ -13,13 +13,15 @@ const sendVerificationEmail = async ({
   const message = `<p>
   Please confirm your email by clicking the following link : 
   <a href="${verifyEmail}">Verify Email</a>
-  </p>`
+  </p>
+  <p>${origin}</p>
+  `
 
   return sendEmail({
     to: email,
     subject: "email confirmation",
     html: `<h4> Hello ${name}</h4>
-    ${message} + ${origin}`,
+    ${message}`,
   })
 }
 
