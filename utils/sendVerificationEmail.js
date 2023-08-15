@@ -6,6 +6,8 @@ const sendVerificationEmail = async ({
   verificationToken,
   origin,
 }) => {
+  // const verifyEmail = `${"https://auth-workflow-ky8z.onrender.com"}/user/verify-email?token=${verificationToken}&email=${email}`
+
   const verifyEmail = `${origin}/user/verify-email?token=${verificationToken}&email=${email}`
 
   const message = `<p>
@@ -17,7 +19,7 @@ const sendVerificationEmail = async ({
     to: email,
     subject: "email confirmation",
     html: `<h4> Hello ${name}</h4>
-    ${message}`,
+    ${message} + ${origin}`,
   })
 }
 
