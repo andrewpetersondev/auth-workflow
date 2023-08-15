@@ -6,16 +6,12 @@ const sendVerificationEmail = async ({
   verificationToken,
   origin,
 }) => {
-  // const verifyEmail = `${"https://auth-workflow-ky8z.onrender.com"}/user/verify-email?token=${verificationToken}&email=${email}`
-
   const verifyEmail = `${origin}/user/verify-email?token=${verificationToken}&email=${email}`
 
   const message = `<p>
   Please confirm your email by clicking the following link : 
   <a href="${verifyEmail}">Verify Email</a>
-  </p>
-  <p>${origin}</p>
-  `
+  </p>`
 
   return sendEmail({
     to: email,
