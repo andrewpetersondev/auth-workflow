@@ -2,8 +2,6 @@ require("dotenv").config()
 require("express-async-errors")
 
 // production
-// const { dirname } = require("path")
-// const { fileURLToPath } = require("url")
 const path = require("path")
 
 // express
@@ -49,6 +47,7 @@ app.use(mongoSanitize())
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
 
+// for development
 // app.use(express.static("./public"))
 
 // only for deployment

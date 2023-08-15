@@ -1,41 +1,41 @@
-import axios from 'axios';
-import React, { useContext, useState, useEffect } from 'react';
-import url from './utils/url';
-const AppContext = React.createContext();
+import axios from "axios"
+import React, { useContext, useState, useEffect } from "react"
+import url from "./utils/url"
+const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState(null)
   const saveUser = (user) => {
-    setUser(user);
-  };
+    setUser(user)
+  }
 
   const removeUser = () => {
-    setUser(null);
-  };
+    setUser(null)
+  }
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get(`/api/v1/users/showMe`);
-      saveUser(data.user);
+      const { data } = await axios.get(`/api/v1/users/showMe`)
+      saveUser(data.user)
     } catch (error) {
-      removeUser();
+      removeUser()
     }
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const logoutUser = async () => {
     try {
-      await axios.delete('/api/v1/auth/logout');
-      removeUser();
+      await axios.delete("/api/v1/auth/logout")
+      removeUser()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    fetchUser()
+  }, [])
 
   return (
     <AppContext.Provider
@@ -48,11 +48,11 @@ const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}
 // make sure use
 export const useGlobalContext = () => {
-  return useContext(AppContext);
-};
+  return useContext(AppContext)
+}
 
-export { AppProvider };
+export { AppProvider }

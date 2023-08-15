@@ -33,8 +33,8 @@ const register = async (req, res) => {
     verificationToken,
   })
 
-  // const origin = "http://localhost:3000"
-  const productionOrigin = "https://auth-workflow-ky8z.onrender.com"
+  // const devOrigin = "http://localhost:3000"
+  const origin = "https://auth-workflow-ky8z.onrender.com"
 
   // console.log(req)
   // const tempOrigin = req.get("origin")
@@ -52,7 +52,7 @@ const register = async (req, res) => {
     name: user.name,
     email: user.email,
     verificationToken: user.verificationToken,
-    productionOrigin,
+    origin,
   })
 
   // send verification token back only while testing in postman
